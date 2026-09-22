@@ -1,4 +1,8 @@
-# Mushroom Pi
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mushroom-pi/.github/main/profile/mushroom-pi-logo.svg" alt="Mushroom Pi" width="360">
+</p>
+
+<h1 align="center">Mushroom Pi</h1>
 
 Automated mushroom-growing control, built as a three-tier open-source system. A **Raspberry Pi Pico 2W** reads a DHT11 temperature/humidity sensor and drives humidifier, fan, and heater relays through a hysteresis control loop; a **NestJS backend** polls each unit every 60 seconds and stores readings in SQLite; and a **React dashboard** displays and controls everything. The server and client ship together as one container image that serves both the API and the UI on port 3000, targeting a Raspberry Pi 3 (1GB).
 
@@ -99,3 +103,7 @@ The release repo — `git clone https://github.com/mushroom-pi/mushpi-ops.git` �
 - `mushpi-docs/roadmap/` — the MVP feature roadmap.
 - `mushpi-ops/README.md` — run it. `mushpi-ops/DEPLOYMENT.md` — deploy it.
 - [`mushpi-orchestration`](https://github.com/mushroom-pi/mushpi-orchestration) — the optional AI orchestration workspace; its `README.md` covers how the machinery is configured and driven.
+
+## Contact
+
+Questions, bug reports and contributions are welcome — open an issue on the relevant repository, or email [mushpi@amda.dev](mailto:mushpi@amda.dev).

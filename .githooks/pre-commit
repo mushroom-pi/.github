@@ -1,0 +1,50 @@
+#!/bin/sh
+# Mushroom Pi — organization-profile mirror guard.
+#
+# The organization profile is ONE deliverable in TWO files:
+#
+#   profile/README.md   canonical — what GitHub renders on the organization page
+#                       (https://github.com/mushroom-pi)
+#   README.md           mirror    — what GitHub renders on the repository page
+#                       (https://github.com/mushroom-pi/.github)
+#
+# GitHub renders a symlink as plain text, so a real duplicate is the only way to
+# show the same article in both places. That makes drift a merge-time hazard:
+# the two must stay byte-identical, and every change lands in both.
+#
+# Enabled per clone — this is local config and cannot be committed:
+#     git config core.hooksPath .githooks
+#
+# A one-off bypass exists (`git commit --no-verify`); do not make a habit of it.
+set -u
+
+canon="profile/README.md"
+mirror="README.md"
+
+fail() {
+	printf '\n  \342\234\226  organization-profile mirror guard: %s\n\n' "$1"
+	printf '       canonical: %s   (org page)\n' "$canon"
+	printf '       mirror:    %s   (repo page)\n\n' "$mirror"
+	printf '     The two files must stay byte-identical. Apply the change to both:\n'
+	printf '       cp %s %s\n\n' "$canon" "$mirror"
+	exit 1
+}
+
+[ -f "$canon" ] || fail "the canonical file is missing"
+[ -f "$mirror" ] || fail "the mirror file is missing"
+
+# 1. Working tree — the pair as it stands on disk.
+cmp -s "$canon" "$mirror" || fail "the pair has diverged on disk"
+
+# 2. Index — catches "edited both, staged only one", where the working tree looks
+#    correct but the commit about to be created would carry only half the change.
+if git diff --cached --name-only | grep -qxE 'profile/README\.md|README\.md'; then
+	tmp=$(mktemp -d) || fail "could not create a temporary directory"
+	trap 'rm -rf "$tmp"' EXIT
+	git cat-file blob ":$canon"  > "$tmp/canon"  2>/dev/null || fail "cannot read the staged $canon"
+	git cat-file blob ":$mirror" > "$tmp/mirror" 2>/dev/null || fail "cannot read the staged $mirror"
+	cmp -s "$tmp/canon" "$tmp/mirror" || fail "the pair has diverged in the staged content"
+fi
+
+printf '  \342\234\223  organization-profile pair is in sync\n'
+exit 0

@@ -70,7 +70,7 @@ A **grower** interacts through the web dashboard to monitor conditions, set temp
 | [`mushpi-server`](https://github.com/mushroom-pi/mushpi-server) | NestJS 11 backend — 60s cron polling, SQLite storage, control proxying, batches/recipes/images, OpenAPI spec |
 | [`mushpi-client`](https://github.com/mushroom-pi/mushpi-client) | React 19 dashboard — auto-generated OpenAPI client, MUI v7, TanStack Query, Recharts |
 | [`mushpi-mock`](https://github.com/mushroom-pi/mushpi-mock) | FastAPI mock Pico unit service — mirrors `mushpi-grow`'s REST API for demos and testing without hardware |
-| [`mushpi-docs`](https://github.com/mushroom-pi/mushpi-docs) | C4 architecture, hardware reference, agent orchestration maps, roadmap history and analyses, presentations |
+| [`mushpi-docs`](https://github.com/mushroom-pi/mushpi-docs) | The published Mintlify documentation site — MDX pages + `docs.json` navigation; the live documentation the site migration is moving into it |
 | [`mushpi-ops`](https://github.com/mushroom-pi/mushpi-ops) | The release/self-hosting entry point — Dockerfile, compose, CI publish to GHCR, the release manifest |
 | [`mushpi-orchestration`](https://github.com/mushroom-pi/mushpi-orchestration) | The AI orchestration workspace — OpenCode agent definitions, the orchestration workflow skill, cross-repo context |
 | [`.github`](https://github.com/mushroom-pi/.github) | This organization profile |
@@ -88,7 +88,6 @@ git clone https://github.com/mushroom-pi/mushpi-grow.git
 git clone https://github.com/mushroom-pi/mushpi-server.git
 git clone https://github.com/mushroom-pi/mushpi-client.git
 git clone https://github.com/mushroom-pi/mushpi-mock.git
-git clone https://github.com/mushroom-pi/mushpi-docs.git
 ```
 
 The release repo — `git clone https://github.com/mushroom-pi/mushpi-ops.git` — is needed only to build the image or cut a release.
@@ -99,9 +98,7 @@ The release repo — `git clone https://github.com/mushroom-pi/mushpi-ops.git` �
 
 ## Where to go next
 
-- `mushpi-docs/architecture/` — C4 architecture (context, container, per-container component).
-- `mushpi-docs/hardware/` — wiring and power guides, per-component references.
-- `mushpi-docs/roadmap/` — roadmap history and analyses. The live roadmap is the GitHub Project; the index and per-feature files were migrated to issues.
+- `mushpi-docs/` — the published documentation site: architecture, hardware reference and the grower guide, as pages are migrated into it.
 - `mushpi-ops/README.md` — run it. `mushpi-ops/DEPLOYMENT.md` — deploy it.
 - [`mushpi-orchestration`](https://github.com/mushroom-pi/mushpi-orchestration) — the optional AI orchestration workspace; its `README.md` covers how the machinery is configured and driven.
 

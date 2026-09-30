@@ -2,9 +2,11 @@
   <img src="https://raw.githubusercontent.com/mushroom-pi/.github/main/profile/mushroom-pi-logo.svg" alt="Mushroom Pi" width="360">
 </p>
 
-# 🍄 Mushroom Pi 🍓
+<h3 align="center">
+  <a href="https://mushroom-pi.mintlify.site/" target="_blank" rel="noopener noreferrer">Learn more</a>
+</h3>
 
-Automated mushroom-growing control, built as a three-tier open-source system. A **Raspberry Pi Pico 2W** reads a DHT11 temperature/humidity sensor and drives humidifier, fan, and heater relays through a hysteresis control loop; a **NestJS backend** polls each unit every 60 seconds and stores readings in SQLite; and a **React dashboard** displays and controls everything. The server and client ship together as one container image that serves both the API and the UI on port 3000, targeting a Raspberry Pi 3 (1GB).
+Automated mushroom-growing control, built as a three-tier open-source system. A **Raspberry Pi Pico 2W** reads a DHT11 temperature/humidity sensor and drives humidifier, fan, and heater relays through a hysteresis control loop; a **NestJS backend** polls each unit every 60 seconds and stores readings in SQLite; and a **React dashboard** displays and controls everything. The server and client ship together as one container image that serves both the API and the UI on port 3000, targeting self-hosting in SBCs or micro computers running Linux.
 
 
 ```mermaid
@@ -69,11 +71,9 @@ A **grower** interacts through the web dashboard to monitor conditions, set temp
 | [`mushpi-grow`](https://github.com/mushroom-pi/mushpi-grow) | MicroPython firmware for the Pico 2W — DHT11 sensor reading, relay control, hysteresis loop, REST API on port 5000 |
 | [`mushpi-server`](https://github.com/mushroom-pi/mushpi-server) | NestJS 11 backend — 60s cron polling, SQLite storage, control proxying, batches/recipes/images, OpenAPI spec |
 | [`mushpi-client`](https://github.com/mushroom-pi/mushpi-client) | React 19 dashboard — auto-generated OpenAPI client, MUI v7, TanStack Query, Recharts |
-| [`mushpi-mock`](https://github.com/mushroom-pi/mushpi-mock) | FastAPI mock Pico unit service — mirrors `mushpi-grow`'s REST API for demos and testing without hardware |
-| [`mushpi-docs`](https://github.com/mushroom-pi/mushpi-docs) | The published Mintlify documentation site — MDX pages + `docs.json` navigation; the live documentation the site migration is moving into it |
 | [`mushpi-ops`](https://github.com/mushroom-pi/mushpi-ops) | The release/self-hosting entry point — Dockerfile, compose, CI publish to GHCR, the release manifest |
-| [`mushpi-orchestration`](https://github.com/mushroom-pi/mushpi-orchestration) | The AI orchestration workspace — OpenCode agent definitions, the orchestration workflow skill, cross-repo context |
-| [`.github`](https://github.com/mushroom-pi/.github) | This organization profile |
+| [`mushpi-mock`](https://github.com/mushroom-pi/mushpi-mock) | FastAPI mock Pico unit service — mirrors `mushpi-grow`'s REST API for demos and testing without hardware |
+| [`mushpi-docs`](https://github.com/mushroom-pi/mushpi-docs) | The published Mintlify [documentation site](https://mushroom-pi.mintlify.site/) — MDX pages + `docs.json` navigation; the live documentation the site migration is moving into it |
 
 ## Run it
 
@@ -92,15 +92,10 @@ git clone https://github.com/mushroom-pi/mushpi-mock.git
 
 The release repo — `git clone https://github.com/mushroom-pi/mushpi-ops.git` — is needed only to build the image or cut a release.
 
-### Optional: the AI orchestration workspace
-
-**No AI tooling is required to contribute.** If you do want the orchestrated workflow, [`mushpi-orchestration`](https://github.com/mushroom-pi/mushpi-orchestration) is the workspace that arranges the repositories as siblings and drives the OpenCode agent roles behind a single `mushpi-orchestrator`. It reflects one person's OpenCode setup — agent definitions, model subscriptions and skills — rather than a packaged product, so treat it as an optional workflow to adapt, not a prerequisite. Working directly in a single repository is a first-class path.
-
 ## Where to go next
 
-- `mushpi-docs/` — the published documentation site: architecture, hardware reference and the grower guide, as pages are migrated into it.
+- `mushpi-docs/` — the [published documentation](https://mushroom-pi.mintlify.site/) site: architecture, hardware reference and the grower guide, as pages are migrated into it.
 - `mushpi-ops/README.md` — run it. `mushpi-ops/DEPLOYMENT.md` — deploy it.
-- [`mushpi-orchestration`](https://github.com/mushroom-pi/mushpi-orchestration) — the optional AI orchestration workspace; its `README.md` covers how the machinery is configured and driven.
 
 ## Contact
 

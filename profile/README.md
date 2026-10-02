@@ -77,7 +77,7 @@ A **grower** interacts through the web dashboard to monitor conditions, set temp
 
 ## Run it
 
-The release repo is the self-hosting entry point — no build step, no agent tooling. See `mushpi-ops/README.md` to get started; `mushpi-ops/DEPLOYMENT.md` covers SD-card provisioning, first boot, Pico unit setup, the update workflow, backups, and Tailscale remote access. The published image is `ghcr.io/mushroom-pi/mushpi`.
+The release repo is the self-hosting entry point — no build step, no agent tooling. See `mushpi-ops/README.md` to get started; the published documentation site's [deployment guide](https://mushroom-pi.mintlify.site/deployment/self-hosting) covers SD-card provisioning, first boot, Pico unit setup, the update workflow, backups, and Tailscale remote access. The published image is `ghcr.io/mushroom-pi/mushpi`.
 
 ## Work on it
 
@@ -95,7 +95,7 @@ The release repo — `git clone https://github.com/mushroom-pi/mushpi-ops.git` �
 ## Where to go next
 
 - `mushpi-docs/` — the [published documentation](https://mushroom-pi.mintlify.site/) site: architecture, hardware reference and the grower guide, as pages are migrated into it.
-- `mushpi-ops/README.md` — run it. `mushpi-ops/DEPLOYMENT.md` — deploy it.
+- `mushpi-ops/README.md` — run it. The site's [deployment guide](https://mushroom-pi.mintlify.site/deployment/self-hosting) — deploy it.
 
 ## Contact
 

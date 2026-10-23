@@ -71,13 +71,13 @@ A **grower** interacts through the web dashboard to monitor conditions, set temp
 | [`mushpi-grow`](https://github.com/mushroom-pi/mushpi-grow) | MicroPython firmware for the Pico 2W — DHT11 sensor reading, relay control, hysteresis loop, REST API on port 5000 |
 | [`mushpi-server`](https://github.com/mushroom-pi/mushpi-server) | NestJS 11 backend — 60s cron polling, SQLite storage, control proxying, batches/recipes/images, OpenAPI spec |
 | [`mushpi-client`](https://github.com/mushroom-pi/mushpi-client) | React 19 dashboard — auto-generated OpenAPI client, MUI v7, TanStack Query, Recharts |
-| [`mushpi-ops`](https://github.com/mushroom-pi/mushpi-ops) | The release/self-hosting entry point — Dockerfile, compose, CI publish to GHCR, the release manifest |
+| [`mushpi-hub`](https://github.com/mushroom-pi/mushpi-hub) | The release/self-hosting entry point — Dockerfile, compose, CI publish to GHCR, the release manifest |
 | [`mushpi-mock`](https://github.com/mushroom-pi/mushpi-mock) | FastAPI mock Pico unit service — mirrors `mushpi-grow`'s REST API for demos and testing without hardware |
 | [`mushpi-docs`](https://github.com/mushroom-pi/mushpi-docs) | The published Mintlify [documentation site](https://mushroom-pi.mintlify.site/) — MDX pages + `docs.json` navigation; the live documentation the site migration is moving into it |
 
 ## Run it
 
-The release repo is the self-hosting entry point — no build step, no agent tooling. See `mushpi-ops/README.md` to get started; the published documentation site's [deployment guide](https://mushroom-pi.mintlify.site/deployment/self-hosting) covers SD-card provisioning, first boot, Pico unit setup, the update workflow, backups, and Tailscale remote access. The published image is `ghcr.io/mushroom-pi/mushpi`.
+The release repo is the self-hosting entry point — no build step, no agent tooling. See `mushpi-hub/README.md` to get started; the published documentation site's [deployment guide](https://mushroom-pi.mintlify.site/deployment/self-hosting) covers SD-card provisioning, first boot, Pico unit setup, the update workflow, backups, and Tailscale remote access. The published image is `ghcr.io/mushroom-pi/mushpi-hub`.
 
 ## Work on it
 
@@ -90,12 +90,12 @@ git clone https://github.com/mushroom-pi/mushpi-client.git
 git clone https://github.com/mushroom-pi/mushpi-mock.git
 ```
 
-The release repo — `git clone https://github.com/mushroom-pi/mushpi-ops.git` — is needed only to build the image or cut a release.
+The release repo — `git clone https://github.com/mushroom-pi/mushpi-hub.git` — is needed only to build the image or cut a release.
 
 ## Where to go next
 
 - `mushpi-docs/` — the [published documentation](https://mushroom-pi.mintlify.site/) site: architecture, hardware reference and the grower guide, as pages are migrated into it.
-- `mushpi-ops/README.md` — run it. The site's [deployment guide](https://mushroom-pi.mintlify.site/deployment/self-hosting) — deploy it.
+- `mushpi-hub/README.md` — run it. The site's [deployment guide](https://mushroom-pi.mintlify.site/deployment/self-hosting) — deploy it.
 
 ## Contact
 

@@ -6,7 +6,7 @@
   <a href="https://mushroom-pi.mintlify.site/" target="_blank" rel="noopener noreferrer">Learn more</a> - <a href="https://mushroom-pi.demo.amda.dev/" target="_blank" rel="noopener noreferrer">Check the demo</a>
 </h3>
 
-Automated mushroom-growing control, built as a three-tier open-source system. A **Raspberry Pi Pico 2W** reads a DHT11 temperature/humidity sensor and drives humidifier, fan, and heater relays through a hysteresis control loop; a **NestJS backend** polls each unit every 60 seconds and stores readings in SQLite; and a **React dashboard** displays and controls everything. The server and client ship together as one container image that serves both the API and the UI on port 3000, targeting self-hosting in SBCs or micro computers running Linux.
+Automated mushroom-growing control, built as a three-tier open-source system. A **Raspberry Pi Pico 2W** reads a DHT11 temperature/humidity sensor and drives humidifier, fan, and heater relays through a hysteresis control loop — and **serves its own status-and-control page** right from the unit, with **no hub, no sign-in and no internet** required. Reach it two ways: on your Wi-Fi network by device name or IP, or on the unit's own open access point, where the Wi-Fi setup form lives at `/provision`. An optional **hub** — one published container image, `ghcr.io/mushroom-pi/mushpi-hub`, serving the NestJS API and the React dashboard together on port 3000 — is the one-step self-hosting path that adds aggregation, reading history, recipes and batches.
 
 
 ```mermaid
@@ -22,14 +22,15 @@ flowchart LR
 
         DB[("🗄️ Database<br/><b>SQLite</b><br/>readings, batches, recipes,<br/>Pico metadata, settings")]
 
-        PICO["🌱 Pico Firmware<br/><b>MicroPython, Pico 2W</b><br/>DHT11 sensor, relay control,<br/>hysteresis loop"]
+        PICO["🌱 Pico Firmware<br/><b>MicroPython, Pico 2W</b><br/>DHT11 sensor, relay control,<br/>hysteresis loop, own status page (/, /ui)"]
     end
 
     ENVIRONMENT{{"🌿 Growing Environment<br/><i>Physical grow space</i>"}}
     MOCK["🛠️ mushpi-mock<br/><i>dev-time stand-in for the Pico</i>"]
 
-    GROWER -->|"Uses<br/>HTTPS"| CLIENT
-    CLIENT -->|"Consumes REST API<br/>JSON/HTTPS"| SERVER
+    GROWER -->|"Uses<br/>HTTP"| CLIENT
+    GROWER -->|"Checks & controls directly<br/>unit page (GET /), no hub<br/>REST/HTTP"| PICO
+    CLIENT -->|"Consumes REST API<br/>JSON/HTTP"| SERVER
     SERVER -->|"Reads/writes<br/>SQLite"| DB
     SERVER -->|"Polls every 60s,<br/>sends control commands<br/>REST/HTTP"| PICO
     PICO -->|"Reads sensor, drives relays<br/>GPIO"| ENVIRONMENT
@@ -55,7 +56,7 @@ flowchart LR
     style MUSHROOM_PI fill:#1e293b,stroke:#475569,color:#e2e8f0
 ```
 
-A **grower** interacts through the web dashboard to monitor conditions, set temperature/humidity targets, and manage cultivation batches. The **Pico firmware** reads the environment and runs the control loop locally; the **backend** polls it every 60 seconds, stores history in SQLite, and proxies control commands back to the unit. The **dashboard** consumes the backend's OpenAPI spec through an auto-generated client. Multiple Pico 2W units can be deployed, each controlling its own grow space. During development, `mushpi-mock` (dotted) stands in for a real Pico — the server can't tell the difference.
+A **grower** interacts through the web dashboard to monitor conditions, set temperature/humidity targets, and manage cultivation batches. The **Pico firmware** reads the environment and runs the control loop locally; the **backend** polls it every 60 seconds, stores history in SQLite, and proxies control commands back to the unit. The **dashboard** consumes the backend's OpenAPI spec through an auto-generated client. Multiple Pico 2W units can be deployed, each controlling its own grow space. A grower can also skip the hub entirely: the unit serves its own page on the joined network (by device name or IP) or on its own open access point, so readings and setpoints are reachable from any browser — no server, no account and no internet connection. During development, `mushpi-mock` (dotted) stands in for a real Pico — the server can't tell the difference.
 
 | Tier | Language | Framework | Key libraries |
 |------|----------|-----------|---------------|
@@ -73,7 +74,7 @@ A **grower** interacts through the web dashboard to monitor conditions, set temp
 | [`mushpi-client`](https://github.com/mushroom-pi/mushpi-client) | React 19 dashboard — auto-generated OpenAPI client, MUI v7, TanStack Query, Recharts |
 | [`mushpi-hub`](https://github.com/mushroom-pi/mushpi-hub) | The release/self-hosting entry point — Dockerfile, compose, CI publish to GHCR, the release manifest |
 | [`mushpi-mock`](https://github.com/mushroom-pi/mushpi-mock) | FastAPI mock Pico unit service — mirrors `mushpi-grow`'s REST API for demos and testing without hardware |
-| [`mushpi-docs`](https://github.com/mushroom-pi/mushpi-docs) | The published Mintlify [documentation site](https://mushroom-pi.mintlify.site/) — MDX pages + `docs.json` navigation; the live documentation the site migration is moving into it |
+| [`mushpi-docs`](https://github.com/mushroom-pi/mushpi-docs) | The published Mintlify [documentation site](https://mushroom-pi.mintlify.site/) — MDX pages + `docs.json` navigation |
 
 ## Run it
 
@@ -94,8 +95,8 @@ The release repo — `git clone https://github.com/mushroom-pi/mushpi-hub.git` �
 
 ## Where to go next
 
-- Check our [demo site](https://mushroom-pi.demo.amda.dev/): a dashboard with live syntetic data where you can explore the self-hosted capabilities.
-- `mushpi-docs/` — the [published documentation](https://mushroom-pi.mintlify.site/) site: architecture, hardware reference and the grower guide, as pages are migrated into it.
+- Check our [demo site](https://mushroom-pi.demo.amda.dev/): a dashboard with live synthetic data where you can explore the self-hosted capabilities.
+- `mushpi-docs/` — the [published documentation](https://mushroom-pi.mintlify.site/) site: architecture, hardware reference and the grower guide.
 - `mushpi-hub/README.md` — run it. The site's [deployment guide](https://mushroom-pi.mintlify.site/deployment/self-hosting) — deploy it.
 
 ## Contact

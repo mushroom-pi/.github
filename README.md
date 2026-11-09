@@ -3,7 +3,7 @@
 </p>
 
 <h3 align="center">
-  <a href="https://mushroom-pi.mintlify.site/" target="_blank" rel="noopener noreferrer">Learn more</a>
+  <a href="https://mushroom-pi.mintlify.site/" target="_blank" rel="noopener noreferrer">Learn more</a> - <a href="https://mushroom-pi.demo.amda.dev/" target="_blank" rel="noopener noreferrer">Check the demo</a>
 </h3>
 
 Automated mushroom-growing control, built as a three-tier open-source system. A **Raspberry Pi Pico 2W** reads a DHT11 temperature/humidity sensor and drives humidifier, fan, and heater relays through a hysteresis control loop; a **NestJS backend** polls each unit every 60 seconds and stores readings in SQLite; and a **React dashboard** displays and controls everything. The server and client ship together as one container image that serves both the API and the UI on port 3000, targeting self-hosting in SBCs or micro computers running Linux.
@@ -59,10 +59,10 @@ A **grower** interacts through the web dashboard to monitor conditions, set temp
 
 | Tier | Language | Framework | Key libraries |
 |------|----------|-----------|---------------|
-| Pico firmware | MicroPython | — | Microdot (web), urequests (HTTP client) |
+| Pico firmware | MicroPython | — | Microdot (web) |
 | Backend | TypeScript | NestJS 11 | TypeORM, SQLite, Swagger/OpenAPI, @nestjs/schedule |
 | Dashboard | TypeScript | React 19 | MUI v7, TanStack Query v5, Recharts v3, React Router v7 |
-| Mock | Python | FastAPI | uv |
+| Mock | Python | FastAPI | uv, Pydantic |
 
 ## Repositories
 
@@ -94,6 +94,7 @@ The release repo — `git clone https://github.com/mushroom-pi/mushpi-hub.git` �
 
 ## Where to go next
 
+- Check our [demo site](https://mushroom-pi.demo.amda.dev/): a dashboard with live syntetic data where you can explore the self-hosted capabilities.
 - `mushpi-docs/` — the [published documentation](https://mushroom-pi.mintlify.site/) site: architecture, hardware reference and the grower guide, as pages are migrated into it.
 - `mushpi-hub/README.md` — run it. The site's [deployment guide](https://mushroom-pi.mintlify.site/deployment/self-hosting) — deploy it.
 
